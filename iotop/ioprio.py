@@ -76,8 +76,13 @@ class IoprioSetError(Exception):
         except TypeError:
             self.err = err
 
-__NR_ioprio_get = find_ioprio_syscall_number(IOPRIO_GET_ARCH_SYSCALL)
-__NR_ioprio_set = find_ioprio_syscall_number(IOPRIO_SET_ARCH_SYSCALL)
+try:
+    from iotop import _ioprio
+    __NR_ioprio_get = _ioprio.SYS_ioprio_get
+    __NR_ioprio_set = _ioprio.SYS_ioprio_set
+except (ImportError, AttributeError):
+    __NR_ioprio_get = find_ioprio_syscall_number(IOPRIO_GET_ARCH_SYSCALL)
+    __NR_ioprio_set = find_ioprio_syscall_number(IOPRIO_SET_ARCH_SYSCALL)
 
 try:
     ctypes_handle = ctypes.CDLL(None, use_errno=True)

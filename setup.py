@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-from distutils.core import setup
+from distutils.core import setup, Extension
 from distutils.command import install as distutils_install
 from iotop.version import VERSION
+
+_ioprio = Extension('iotop._ioprio', sources = ['iotop/_ioprio.c'])
 
 # Dirty hack to make setup.py install the iotop script to sbin/ instead of bin/
 # while still honoring the choice of installing into local/ or not.
@@ -22,5 +24,6 @@ show of behalf of which process is the I/O going on.''',
       scripts=['sbin/iotop'],
       data_files=[('share/man/man8', ['iotop.8'])],
       packages=['iotop'],
+      ext_modules = [_ioprio],
       license='GPL'
 )
