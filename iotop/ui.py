@@ -618,6 +618,9 @@ def run_iotop(options):
             return run_iotop_window(None, options)
         else:
             return curses.wrapper(run_iotop_window, options)
+    except curses.error as e:
+        print('iotop interface error:', e, file=sys.stderr)
+        sys.exit(1)
     except OSError as e:
         if e.errno == errno.EPERM:
             print(e, file=sys.stderr)
