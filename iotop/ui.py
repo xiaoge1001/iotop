@@ -494,7 +494,9 @@ class IOTopUI(object):
             if Stats.has_blkio_delay_total:
                 status_msg = None
             else:
-                status_msg = ('CONFIG_TASK_DELAY_ACCT not enabled in kernel, '
+                status_msg = ('CONFIG_TASK_DELAY_ACCT '
+                              'and kernel.task_delayacct sysctl '
+                              'not enabled in kernel, '
                               'cannot determine SWAPIN and IO %')
 
             help_lines = []

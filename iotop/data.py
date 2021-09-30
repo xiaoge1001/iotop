@@ -60,7 +60,7 @@ if not ioaccounting or not vm_event_counters:
     if not ioaccounting:
         print('  - I/O accounting support ' \
           '(CONFIG_TASKSTATS, CONFIG_TASK_DELAY_ACCT, ' \
-          'CONFIG_TASK_IO_ACCOUNTING)')
+          'CONFIG_TASK_IO_ACCOUNTING, kernel.task_delayacct sysctl)')
     if not vm_event_counters:
         print('  - VM event counters (CONFIG_VM_EVENT_COUNTERS)')
     sys.exit(1)
