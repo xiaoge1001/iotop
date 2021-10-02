@@ -477,3 +477,11 @@ class ProcessList(DumpableObject):
 
     def clear(self):
         self.processes = {}
+
+
+def sysctl_task_delayacct():
+    try:
+        with open('/proc/sys/kernel/task_delayacct') as f:
+            return bool(int(f.read().strip()))
+    except FileNotFoundError:
+        return None

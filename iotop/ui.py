@@ -43,7 +43,7 @@ except (ImportError, RuntimeError):
 
 from collections import OrderedDict
 
-from iotop.data import find_uids, TaskStatsNetlink, ProcessList, Stats
+from iotop.data import find_uids, TaskStatsNetlink, ProcessList, Stats, sysctl_task_delayacct
 from iotop.data import ThreadInfo
 from iotop.version import VERSION
 from iotop import ioprio
@@ -421,7 +421,7 @@ class IOTopUI(object):
         def format(p):
             stats = format_stats(self.options, p, self.process_list.duration)
             io_delay, swapin_delay, read_bytes, write_bytes = stats
-            if Stats.has_blkio_delay_total:
+            if self.has_swapin_io:
                 delay_stats = '%7s %7s ' % (swapin_delay, io_delay)
             else:
                 delay_stats = ' ?unavailable?  '
@@ -473,6 +473,14 @@ class IOTopUI(object):
             pid += 'TID'
         titles = [pid, '  PRIO', '  USER', '     DISK READ', '  DISK WRITE',
                   '  SWAPIN', '      IO', '    COMMAND']
+        self.has_swapin_io = Stats.has_blkio_delay_total
+        if self.has_swapin_io:
+            # Linux kernels without the sysctl return None and
+            # iotop just uses the heuristic for those versions.
+            # Linux kernels with the sysctl return True or False
+            # and iotop then uses the sysctl value instead.
+            if sysctl_task_delayacct() == False:
+                self.has_swapin_io = False
         lines = self.get_data()
         if self.options.time:
             titles = ['    TIME'] + titles
@@ -491,7 +499,7 @@ class IOTopUI(object):
         else:
             self.win.erase()
 
-            if Stats.has_blkio_delay_total:
+            if self.has_swapin_io:
                 status_msg = None
             else:
                 status_msg = ('CONFIG_TASK_DELAY_ACCT '
