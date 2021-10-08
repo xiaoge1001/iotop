@@ -207,7 +207,7 @@ def find_uids(options):
 def parse_proc_pid_status(pid):
     result_dict = {}
     try:
-        for line in open('/proc/%d/status' % pid):
+        for line in open('/proc/%d/status' % pid, errors='replace'):
             try:
                 key, value = line.split(':', 1)
             except ValueError:
