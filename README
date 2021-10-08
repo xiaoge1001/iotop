@@ -21,6 +21,8 @@ really want to install this version of iotop on your system, do (as root):
 # ./setup.py install
 
 
+To chat with the iotop community join #iotop on the libera.chat IRC network.
+
 -- 
 Guillaume Chazarain <guichaz@gmail.com>
 http://guichaz.free.fr/iotop
