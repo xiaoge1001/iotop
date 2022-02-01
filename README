@@ -26,6 +26,11 @@ less resources and has more features, please take a look at this project:
 
 https://github.com/Tomas-M/iotop
 
+Packages of both implementations are available in several distributions:
+
+https://repology.org/project/iotop-python/versions
+https://repology.org/project/iotop-c/versions
+
 To chat with the iotop community join #iotop on the libera.chat IRC network.
 Please mention which implementation is in use when asking questions there.
 
