@@ -21,7 +21,13 @@ really want to install this version of iotop on your system, do (as root):
 # ./setup.py install
 
 
+For an alternative implementation of iotop that is written in C, uses
+less resources and has more features, please take a look at this project:
+
+https://github.com/Tomas-M/iotop
+
 To chat with the iotop community join #iotop on the libera.chat IRC network.
+Please mention which implementation is in use when asking questions there.
 
 -- 
 Guillaume Chazarain <guichaz@gmail.com>
